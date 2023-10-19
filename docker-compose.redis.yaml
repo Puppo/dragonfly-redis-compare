@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  redis:
+    image: "redis:7.2-alpine"
+    ulimits:
+      memlock: -1
+    cpuset: "2"
+    ports:
+      - "6380:6379"
+

@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  dragonfly:
+    image: "docker.dragonflydb.io/dragonflydb/dragonfly"
+    platform: linux/arm64
+    ulimits:
+      memlock: -1
+    cpuset: "2"
+    ports:
+      - "6379:6379"
+

@@ -1,8 +1,8 @@
 'use strict'
 
 import inquirer from 'inquirer'
-import {getStartBench, putStartBench} from './get.js'
-import set from './set.js'
+import {delStartBench, getStartBench} from './get-and-del.js'
+import setStartBench from './set.js'
 
 const URLS = {
   Redis: 'http://0.0.0.0:3000',
@@ -10,9 +10,9 @@ const URLS = {
 }
 
 const METHODS = {
-  Set: set,
+  Set: setStartBench,
   Get: getStartBench,
-  Put: putStartBench
+  Del: delStartBench
 }
 
 inquirer.prompt([

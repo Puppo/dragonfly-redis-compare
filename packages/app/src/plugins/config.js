@@ -1,6 +1,6 @@
 'use strict'
 
-import { Type } from '@sinclair/typebox'
+import {Type} from '@sinclair/typebox'
 import fp from 'fastify-plugin'
 
 const schema = Type.Object({
@@ -19,6 +19,8 @@ export default fp(async function (fastify) {
     schema,
     dotenv: true
   })
+
+  fastify.log.info(fastify.config, 'Config loaded')
 }, {
   name: 'config'
 })

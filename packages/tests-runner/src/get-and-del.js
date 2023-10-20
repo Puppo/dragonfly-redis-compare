@@ -34,9 +34,9 @@ function generateBench(method) {
 }
 
 const getStartBench = generateBench('GET')
-const putStartBench = generateBench('PUT')
+const delStartBench = generateBench('PUT')
 
 export {
-  getStartBench,
-  putStartBench
+  delStartBench, getStartBench
 }
+

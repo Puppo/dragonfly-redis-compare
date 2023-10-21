@@ -2,7 +2,7 @@
 
 import fp from 'fastify-plugin'
 
-export default fp(async (fastify) => {
+export default fp(async function (fastify) {
   await fastify.register(import('@fastify/redis'), {
     host: fastify.config.CACHE_HOST,
     port: fastify.config.CACHE_PORT

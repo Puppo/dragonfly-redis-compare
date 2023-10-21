@@ -22,7 +22,7 @@ export default async function movies (fastify) {
         200: MovieSchema
       }
     },
-  }, async (request) => {
+  }, async function(request) {
     await fastify.cache.set(`movies-${request.body.id}`, JSON.stringify(request.body))
     return request.body
   })
@@ -33,7 +33,7 @@ export default async function movies (fastify) {
         200: Result
       }
     }
-  }, (request) => fastify.cache.flushall())
+  }, function(request) {return fastify.cache.flushall() })
 
   fastify.get('/:id', {
     schema: {
@@ -44,7 +44,7 @@ export default async function movies (fastify) {
         200: MovieSchema
       }
     }
-  }, async (request) => {
+  }, async function(request) {
     const movie = await fastify.cache.get(`movies-${request.params.id}`)
     if (!movie) {
       throw fastify.httpErrors.notFound()
@@ -52,7 +52,7 @@ export default async function movies (fastify) {
     return JSON.parse(movie)
   })
 
-  fastify.put('/:id', {
+  fastify.delete('/:id', {
     schema: {
       params: Type.Object({
         id: MovieIdSchema
@@ -61,5 +61,7 @@ export default async function movies (fastify) {
         200: Result
       }
     }
-  }, (request) => fastify.cache.del(`movies-${request.params.id}`))
+  }, function(request) { 
+    return fastify.cache.del(`movies-${request.params.id}`)
+  })
 }

@@ -2,7 +2,7 @@
 
 import autocannon from 'autocannon'
 import globalClient from '../../client/global.js'
-import { MOVIE } from './utils.js'
+import {MOVIE} from './utils.js'
 
 function teardown (url) {
   return globalClient.clear(url)
@@ -10,9 +10,9 @@ function teardown (url) {
 
 async function startBench (url, { serializeType }) {
   try {
-    const res = await autocannon({
+    return await autocannon({
       url: `${url}/api/movies/${serializeType}`,
-      connections: 1000,
+      connections: 500,
       duration: 10,
       method: 'POST',
       headers: {
@@ -20,13 +20,6 @@ async function startBench (url, { serializeType }) {
       },
       body: JSON.stringify(MOVIE)
     })
-
-    console.log(
-      autocannon.printResult(res, {
-        renderResultsTable: true,
-        renderLatencyTable: true
-      })
-    )
   } finally {
     await teardown(url)
   }

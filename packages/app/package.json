@@ -19,6 +19,9 @@
     "dev:redis": "node --watch --env-file .env.redis src/index.js",
     "dev:dragonfly": "node --watch --env-file .env.dragonfly src/index.js",
     "dev": "concurrently \"npm run dev:redis\" \"npm run dev:dragonfly\"",
+    "start:local:redis": "node --env-file .env.redis src/index.js",
+    "start:local:dragonfly": "node --env-file .env.dragonfly src/index.js",
+    "start:local": "concurrently \"npm run start:local:redis\" \"npm run start:local:dragonfly\"",
     "start": "node src/index.js",
     "lint": "standard \"**/*.js\"",
     "lint:fix": "npm run lint -- --fix"
@@ -35,6 +38,7 @@
     "desm": "^1.3.0",
     "fastify": "^4.24.2",
     "fastify-plugin": "^4.5.1",
-    "fastify-print-routes": "^2.1.0"
+    "fastify-print-routes": "^2.1.0",
+    "msgpackr": "^1.9.9"
   }
 }

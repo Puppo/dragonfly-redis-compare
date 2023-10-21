@@ -10,6 +10,10 @@ export default fp(async function (fastify) {
 
   fastify.decorate('cache', fastify.redis)
 
+  fastify.addHook('onReady', () => {
+    fastify.redis.flushall()
+  })
+
   fastify.addHook('onClose', (instance) => {
     instance.redis.quit()
   })

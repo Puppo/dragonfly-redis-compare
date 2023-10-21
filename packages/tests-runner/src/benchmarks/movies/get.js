@@ -1,28 +1,28 @@
 'use strict'
 
 import autocannon from 'autocannon'
-import movieClient from '../../operations/movies/index.js'
-import {MOVIE, MOVIE_ID} from './utils.js'
+import globalClient from '../../client/global.js'
+import movieClient from '../../client/movies.js'
+import { MOVIE } from './utils.js'
 
-const id = 1
-async function setup(url) {
-  await movieClient.create(url, MOVIE)
+async function setup (url, opts) {
+  return await movieClient.create(url, MOVIE, opts)
 }
 
-async function teardown(url) {
-  await movieClient.delete(url, MOVIE_ID)
+async function teardown (url) {
+  return globalClient.clear(url)
 }
 
-export default async function startBench (url) {
-  await setup(url)
+export default async function startBench (url, { serializeType }) {
+  const { id } = await setup(url, { serializeType })
   try {
     const res = await autocannon({
-      url: `${url}/api/movies/${MOVIE_ID}`,
+      url: `${url}/api/movies/${serializeType}/${id}`,
       connections: 1000,
       duration: 10,
-      method: 'GET',
+      method: 'GET'
     })
-  
+
     console.log(
       autocannon.printResult(res, {
         renderResultsTable: true,
@@ -33,4 +33,3 @@ export default async function startBench (url) {
     await teardown(url)
   }
 }
-

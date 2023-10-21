@@ -1,0 +1,54 @@
+version: "3.8"
+
+services:
+  # api-dragonfly:
+  #   build: ${PWD}/packages/app
+  #   container_name: api-dragonfly
+  #   hostname: api-dragonfly
+  #   ports:
+  #     - 3001:3001
+  #   environment:
+  #     - NODE_ENV=production
+  #     - PORT=3001
+  #     - HOST=0.0.0.0
+  #     - CACHE_HOST=dragonfly
+  #     - CACHE_PORT=6379
+  #   depends_on:
+  #     - dragonfly
+
+  dragonfly:
+    image: "docker.dragonflydb.io/dragonflydb/dragonfly"
+    container_name: dragonfly
+    hostname: dragonfly
+    platform: linux/arm64
+    ulimits:
+      memlock: -1
+    cpuset: "2"
+    ports:
+      - "6379:6379"
+
+  # api-redis:
+  #   build: ${PWD}/packages/app
+  #   container_name: api-redis
+  #   hostname: api-redis
+  #   ports:
+  #     - 3000:3000
+  #   environment:
+  #     - NODE_ENV=production
+  #     - PORT=3000
+  #     - HOST=0.0.0.0
+  #     - CACHE_HOST=redis
+  #     - CACHE_PORT=6380
+  #   depends_on:
+  #     - redis
+
+  redis:
+    image: "redis:7.2-alpine"
+    container_name: redis
+    hostname: redis
+    ulimits:
+      memlock: -1
+    cpuset: "2"
+    ports:
+      - "6380:6379"
+

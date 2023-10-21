@@ -2,23 +2,25 @@
 
 import autocannon from 'autocannon'
 import globalClient from '../../client/global.js'
-import { MOVIE } from './utils.js'
+import stringClient from '../../client/strings.js'
+import { HELLO } from './utils.js'
 
-function teardown (url) {
+async function setup (url) {
+  return await stringClient.create(url, HELLO)
+}
+
+async function teardown (url) {
   return globalClient.clear(url)
 }
 
-async function startBench (url, { serializeType }) {
+export default async function startBench (url) {
+  const { id } = await setup(url)
   try {
     const res = await autocannon({
-      url: `${url}/api/movies/${serializeType}`,
+      url: `${url}/api/strings/${id}`,
       connections: 1000,
       duration: 10,
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(MOVIE)
+      method: 'GET'
     })
 
     console.log(
@@ -28,8 +30,6 @@ async function startBench (url, { serializeType }) {
       })
     )
   } finally {
-    await teardown(url)
+    await teardown(url, id)
   }
 }
-
-export default startBench

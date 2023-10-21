@@ -1,6 +1,6 @@
 'use strict'
 
-import {Type} from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
 import fp from 'fastify-plugin'
 
 const schema = Type.Object({

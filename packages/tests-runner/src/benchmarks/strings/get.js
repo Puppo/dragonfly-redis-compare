@@ -3,7 +3,7 @@
 import autocannon from 'autocannon'
 import globalClient from '../../client/global.js'
 import stringClient from '../../client/strings.js'
-import {HELLO} from './utils.js'
+import { HELLO } from './utils.js'
 
 async function setup (url) {
   return await stringClient.create(url, HELLO)
@@ -18,7 +18,7 @@ export default async function startBench (url) {
   try {
     return await autocannon({
       url: `${url}/api/strings/${id}`,
-      connections: 500,
+      connections: 100,
       duration: 10,
       method: 'GET'
     })

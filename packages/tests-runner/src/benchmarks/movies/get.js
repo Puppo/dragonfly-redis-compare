@@ -18,7 +18,7 @@ export default async function startBench (url, { serializeType }) {
   try {
     return await autocannon({
       url: `${url}/api/movies/${serializeType}/${id}`,
-      connections: 500,
+      connections: 100,
       duration: 10,
       method: 'GET'
     })
